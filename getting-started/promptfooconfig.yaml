@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
+description: 'Getting started'
+prompts:
+  - '將這段英文轉換成{{language}}：{{input}}'
+  - '翻譯成{{language}}：{{input}}'
+
+providers:
+  - openai:gpt-4o-mini
+  - openai:gpt-4o
+
+tests:
+  - vars:
+      language: 法語
+      input: Hello World.
+    assert:
+      - type: contains
+        value: 'Bonjour le monde'
+  - vars:
+      language: 西班牙語
+      input: 圖書館在哪裡？
+    assert:
+      - type: icontains
+        value: 'Dónde está la biblioteca'

@@ -1,0 +1,9 @@
+# yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
+prompts:
+  - file://prompts.txt
+
+providers:
+  - id: file://customProvider.js
+    label: 'My custom provider'
+
+tests: file://tests.csv

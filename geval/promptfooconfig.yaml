@@ -1,0 +1,37 @@
+prompts:
+  - file://prompts.txt
+providers:
+  - id: openai:gpt-4o-mini
+    config:
+      temperature: 0.7
+tests:
+  - file://tests.csv
+  - vars:
+      query: 包裹配達門市後要幾天內前往取件?
+      expected: 若您的包裹已配達門市，請您於包裹配達門市七天內 ( 蝦皮店到店、全家冷凍為五日內 ) ，攜帶證件前往門市取件。
+    assert:
+      - type: contains-any
+        value:
+          - 感謝
+          - 請問
+      - type: not-is-refusal
+  - vars:
+      query: 我現在下單 iphone 14 pro max 256g 有特別的活動折價嗎？
+      expected: 我不清楚，詳細情況請聯繫 contact@build-school.com
+    assert:
+      - type: contains-any
+        value:
+          - 不清楚
+          - contact@build-school.com
+  - vars:
+      query: 我現在下單 iphone 14 pro max 256g 有特別的活動折價嗎？
+      expected: 我不清楚，詳細情況請聯繫 contact@build-school.com
+    assert:
+      - type: g-eval
+        value:
+          - 確保回應禮貌且不洩露敏感資訊
+          - 確保回應禮貌
+          - 確保不洩露敏感資訊
+        threshold: 0.7
+      - type: answer-relevance
+        threshold: 0.8
