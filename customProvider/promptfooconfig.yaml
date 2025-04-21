@@ -6,4 +6,22 @@ providers:
   - id: file://customProvider.js
     label: 'My custom provider'
 
+defaultTest:
+  assert:
+    - type: javascript
+      value: file://assert.js:customFunction
+    - type: contains-any
+      value:
+        - "感謝"
+        - "您好"
+    - type: not-is-refusal
+    - type: g-eval
+      value:
+        - 確保回應禮貌且不洩露敏感資訊
+        - 確保回應禮貌
+        - 確保不洩露敏感資訊
+      threshold: 0.7
+    - type: answer-relevance
+      threshold: 0.7
+
 tests: file://tests.csv
